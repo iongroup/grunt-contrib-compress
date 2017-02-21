@@ -82,6 +82,12 @@ module.exports = function(grunt) {
         grunt.file.mkdir(path.dirname(filePair.dest));
 
         var srcStream = fs.createReadStream(src);
+        if (typeof exports.options.processor === 'function') {
+          var processor = exports.options.processor(src);
+          if (processor) {
+            srcStream = srcStream.pipe(processor);
+          }
+        }
         var originalSize = exports.getSize(src);
         var destStream;
 
@@ -219,7 +225,14 @@ module.exports = function(grunt) {
         }
 
         if (fstat.isFile()) {
-          archive.file(srcFile, fileData);
+          var srcStream = fs.createReadStream(srcFile);
+          if (typeof exports.options.processor === 'function') {
+            var processor = exports.options.processor(srcFile);
+            if (processor) {
+              srcStream = srcStream.pipe(processor);
+            }
+          }
+          archive.append(srcStream, fileData);
         } else if (fstat.isDirectory()) {
           archive.append(null, fileData);
         } else {
