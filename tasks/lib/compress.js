@@ -19,11 +19,11 @@ var _ = require('lodash');
 
 var iltorb;
 
-try {
-  iltorb = require('iltorb');
-} catch (er) {
-  iltorb = null;
-}
+// try {
+//   iltorb = require('iltorb');
+// } catch (er) {
+//   iltorb = null;
+// }
 
 module.exports = function(grunt) {
 

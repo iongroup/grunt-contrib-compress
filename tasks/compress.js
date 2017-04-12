@@ -13,11 +13,11 @@ module.exports = function(grunt) {
   var compress = require('./lib/compress')(grunt);
   var iltorb;
 
-  try {
-    iltorb = require('iltorb');
-  } catch (er) {
-    iltorb = null;
-  }
+  // try {
+  //   iltorb = require('iltorb');
+  // } catch (er) {
+  //   iltorb = null;
+  // }
 
   grunt.registerMultiTask('compress', 'Compress files.', function() {
     compress.options = this.options({
